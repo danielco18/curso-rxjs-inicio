@@ -3,9 +3,9 @@ import { Observable, Observer } from 'rxjs';
 
 // Observer
 const observer: Observer<string> = {
-    next: value => console.log(value),
-    error: e => console.error(e),
-    complete: () => console.log('Completado')
+    next: console.log,
+    error: console.error,
+    complete: () => console.info('Completado')
 }
 
 // No es muy usado
@@ -36,7 +36,7 @@ const obs$ = new Observable<string>(subs => {
 // console.log('-------')
 // obs$.subscribe(console.log)
 
-// Subscriber
+// Subscribe by a Subscription (Callbacks)
 // obs$.subscribe(
 //     value => console.log(`next ${value}`),
 //     error => console.error(`error: ${error}`),
