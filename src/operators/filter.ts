@@ -10,7 +10,7 @@ const isOdd = (number: number) => number % 2 === 1
 const isHero = ({ isHero }: Character): boolean => isHero
 const isVillain = ({ isHero }: Character): boolean => !isHero
 
-const range$ = range(1,10)
+const range$ = range(1, 10)
     .pipe(
         filter(isOdd)
     );
