@@ -32,7 +32,7 @@ const characters: Character[] = [
 
 const characters$ = from(characters)
     .pipe(
-        distinctUntilChanged(({ name: previous }, { name: current }) => previous === current)
+        distinctUntilChanged(({ name: previous }, { name: current }) => previous === current) // ! Si es true omite
     )
 
 characters$
