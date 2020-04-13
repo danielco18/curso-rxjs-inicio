@@ -1,7 +1,7 @@
 import { fromEvent, Observable } from 'rxjs';
 import { debounceTime, map, pluck, mergeAll, mergeMap, switchMap } from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
-import { IGithubUsers, IGithubUserResponse } from './interfaces/IGithubUsers';
+import { IGithubUsers, IGithubUserResponse } from '../interfaces/IGithubUsers';
 
 const body = document.querySelector('body');
 const textInput = document.createElement('input');
@@ -29,7 +29,7 @@ const showUsers = (users: IGithubUsers[]) => {
 
 body.append(textInput, orderList);
 
-const input$ = fromEvent<KeyboardEvent>(textInput, 'keyup')
+const input$ = fromEvent<KeyboardEvent>(textInput, 'keyup');
 
 input$.pipe(
     debounceTime(500),
@@ -38,11 +38,13 @@ input$.pipe(
         ajax.getJSON(`https://api.github.com/search/users?q=${user}`),
     ),
     pluck<IGithubUserResponse, IGithubUsers[]>('items'),
-);//.subscribe(showUsers);
+); //.subscribe(showUsers);
 
-const URL = 'https://httpbin.org/delay/1?arg='
+const URL = 'https://httpbin.org/delay/1?arg=';
 
-input$.pipe(
-    pluck<KeyboardEvent, string>('target', 'value'),
-    switchMap((text) => ajax.getJSON(`${URL}${text}`)),
-).subscribe(console.log)
+input$
+    .pipe(
+        pluck<KeyboardEvent, string>('target', 'value'),
+        switchMap((text) => ajax.getJSON(`${URL}${text}`)),
+    )
+    .subscribe(console.log);
