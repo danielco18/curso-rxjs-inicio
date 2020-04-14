@@ -1,48 +1,10 @@
-import { fromEvent, of } from 'rxjs';
-import { tap, map, mergeMap, pluck, catchError } from 'rxjs/operators';
-import { ajax } from 'rxjs/ajax';
+import { of } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 
-interface Login {
-    email: string;
-    password: string;
-}
+const numbers$ = of(1, 2, 3)
 
-const sendLoginRequest = (login: Login) => ajax
-    .post('https://reqres.in/api/login?delay=1', login)
+numbers$
     .pipe(
-        pluck('response', 'token'),
-        catchError(error => of(''))
+        startWith('a')
     )
-
-
-const form = document.createElement('form')
-const inputEmail = document.createElement('input')
-const inputPass = document.createElement('input')
-const submitButton = document.createElement('button')
-
-
-inputEmail.type = 'email'
-inputEmail.placeholder = 'Email'
-inputEmail.value = 'eve.holt@reqres.in';
-
-inputPass.type = 'password'
-inputPass.placeholder = 'Password'
-inputPass.value = 'cityslicka';
-
-submitButton.innerHTML = 'Login'
-
-form.append(inputEmail, inputPass, submitButton)
-
-document.querySelector('body').append(form)
-
-const submitForm$ = fromEvent(form, 'submit').pipe(
-    tap((e) => e.preventDefault()),
-    map(({ target }) => ({
-        email: target[0].value,
-        password: target[1].value,
-    })),
-    mergeMap(sendLoginRequest),
-);
-
-
-submitForm$.subscribe(console.log)
+    .subscribe(console.log)
