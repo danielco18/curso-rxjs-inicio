@@ -18,11 +18,10 @@ import { take, map } from 'rxjs/operators';
 
 (() => {
     const inicio = 7;
-    const countdown$ = interval(700)
-        .pipe(
-            map(val => inicio - val),
-            take(inicio + 1)
-        );
+    const countdown$ = interval(700).pipe(
+        map((val) => inicio - val),
+        take(inicio + 1),
+    );
 
     // No tocar esta línea ==================
     countdown$.subscribe(console.log); // =
