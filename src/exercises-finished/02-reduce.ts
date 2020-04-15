@@ -14,8 +14,8 @@ import { filter, reduce, map } from 'rxjs/operators';
 
 (() => {
     const sumValues = (prev: number, curr: number) => prev + curr;
-    const isNotNaN = (number: number | string): boolean => !isNaN(+number);
+    const isNotNaN = (number: any): boolean => !isNaN(+number);
     const datos = [1, 2, 'foo', 3, 5, 6, 'bar', 7, 8];
 
-    from(datos).pipe(filter<any>(isNotNaN), reduce(sumValues)).subscribe(console.log); // La salida debe de ser 32
+    from(datos).pipe(filter(isNotNaN), reduce(sumValues)).subscribe(console.log); // La salida debe de ser 32
 })();
